@@ -44,9 +44,9 @@
                             <a href="{{url('/edit-family/'.$item->id)}}">
                                 <button class="btn btn-secondary">Edit</button>
                             </a>
-                            <a href="{{url('/view-student-of-course/'.$item->id)}}">
-                                <button class="btn btn-primary">Courses Records Of Student</button>
-                            </a>
+{{--                            <a href="{{url('/view-student-of-course/'.$item->id)}}">--}}
+{{--                                <button class="btn btn-primary">Courses Records Of Student</button>--}}
+{{--                            </a>--}}
                         </td>
                     </tr>
                 @endforeach

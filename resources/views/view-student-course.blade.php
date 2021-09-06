@@ -41,16 +41,20 @@
                         <td>{{$key + 1}}</td>
                         <td class="text-center">{{$item->details->surname1 ?? ''}} {{$item->details->surname2 ?? ''}}, {{$item->student->name}}</td>
                         <td class="text-center">{{$item->details->birthdate ?? ''}}</td>
-                        <td class="text-center">Not Assigned Yet</td>
+                        @if(!\App\User::where('id', $item->family_id)->exists())
+                            <td class="text-center">Not Assigned Yet</td>
+                        @else
+                            <td class="text-center">{{\App\User::where('id', $item->family_id)->first()['name'] ?? ''}}</td>
+                        @endif
                         <td class="text-center">
-                            <a href="{{url('/edit-course/'.$item->id)}}">
+                            <a href="{{url('/edit-student/'.$item->student_id)}}">
                                 <button class="btn btn-secondary">Edit Student</button>
                             </a>
                             <a href="{{url('/remove-student/'.$item->student->id.'/course/'. $courseId)}}">
                                 <button class="btn btn-danger">Remove Student</button>
                             </a>
-                            <a href="{{url('/view-student-of-course/'.$item->id)}}">
-                                <button class="btn btn-primary">Assign Family</button>
+                            <a href="#">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11112" onclick="setStudentId(`{{$item->id}}`)">Assign Family</button>
                             </a>
                         </td>
                     </tr>
@@ -97,4 +101,42 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal11112" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Assign family to this student in this course</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{url("/assign-family")}}">
+                        @csrf
+                        <input type="hidden" name="courseId" id="courseId" value="{{$courseId}}">
+                        <input type="hidden" name="studentIdAssign" id="studentIdAssign" value="">
+                        <div class="form-group" id="message-template-div">
+                            <label>Family to be assigned to this student in this course:</label>
+                            <select class="form-control" name="selectedFamily" id="selectedFamily" required>
+                                <option>Select Family</option>
+                                @foreach(\App\User::where('type' , 'family')->get() as $template)
+                                    <option
+                                        value="{{$template->id}}">{{$template->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-secondary">Assign Family</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setStudentId(id){
+            document.getElementById('studentIdAssign').value = id;
+        }
+    </script>
 @endsection

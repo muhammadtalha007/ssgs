@@ -147,6 +147,12 @@
                                     </a>
                                 </li>
                                 <li class="" style="border: 1px solid white;border-bottom: 0px">
+                                    <a href="{{env('APP_URL')}}/active-courses">
+                                        <i class="fas fa-book"></i>
+                                        <span>Active Courses</span>
+                                    </a>
+                                </li>
+                                <li class="" style="border: 1px solid white;border-bottom: 0px">
                                     <a href="{{env('APP_URL')}}/student-profile">
                                         <i class="fas fa-user-circle"></i>
                                         <span>Profile</span>

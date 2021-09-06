@@ -46,7 +46,7 @@
                             <a href="{{url('/edit-student/'.$item->id)}}">
                                 <button class="btn btn-secondary">Edit</button>
                             </a>
-                            <a href="{{url('/view-student-of-course/'.$item->id)}}">
+                            <a href="{{url('/view-courses-of-students/'.$item->id)}}">
                                 <button class="btn btn-primary">Courses Records</button>
                             </a>
                         </td>

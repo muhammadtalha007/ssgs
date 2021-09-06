@@ -27,6 +27,7 @@ Route::post('/save-course', "CourseController@saveCourse")->middleware('dashboar
 Route::get('edit-course/{id}', "CourseController@editCourseView")->middleware('dashboard');
 Route::post('/save-edited-course', "CourseController@saveEditedCourse")->middleware('dashboard');
 Route::get('view-student-of-course/{id}', "CourseController@studentsOfCourseView")->middleware('dashboard');
+Route::get('view-courses-of-students/{id}', "CourseController@getStudentsOfCourse")->middleware('dashboard');
 Route::post('/save-student-added-in-course', "CourseController@saveStudentAddedInCourse")->middleware('dashboard');
 Route::get('remove-student/{studentId}/course/{courseId}', "CourseController@removeStudent")->middleware('dashboard');
 Route::get('/family-profile', "FamilyController@getFamilyProfileView")->middleware('dashboard');
@@ -44,6 +45,9 @@ Route::post('/save-student-edited-details', 'StudentController@saveStudentEdited
 Route::post('/save-family-edited-details', 'FamilyController@saveFamilyEditedDetails')->middleware('dashboard');
 Route::get('/families', 'FamilyController@getFamilyListView')->middleware('dashboard');
 Route::get('/student-my-course', 'StudentController@getStudentCourseListView')->middleware('dashboard');
+Route::get('/active-courses', 'StudentController@activeCourses')->middleware('dashboard');
+Route::post('/assign-family', 'StudentController@assignFamily')->middleware('dashboard');
+Route::get('/add-me/{id}', 'StudentController@addMe')->middleware('dashboard');
 
 
 Route::get('/get-chat-ping-count', "CustomerController@getChatCount");

@@ -81,6 +81,16 @@ class CourseController extends Controller
         return view('view-student-course')->with(['student' => $students, 'courseId' => $courseId]);
     }
 
+    public function getStudentsOfCourse($studentId)
+    {
+        $courses = StudentsAddedInCourse::where('student_id', $studentId)->get();
+//        return json_encode($courses);
+        foreach ($courses as $stud) {
+            $stud['course'] = Course::where('id', $stud->course_id)->first();
+        }
+        return view('view-course-of-students')->with(['courses' => $courses, 'student' => User::where('id', $studentId)->first()]);
+    }
+
     public function saveStudentAddedInCourse(Request $request)
     {
         if (StudentsAddedInCourse::where(['course_id' => $request->courseId, 'student_id' => $request->selectedStudents])->exists()) {

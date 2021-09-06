@@ -92,6 +92,33 @@ class StudentController extends Controller
         return view('students')->with(['users' => $users]);
     }
 
+    public function assignFamily(Request $request){
+        if (!StudentsAddedInCourse::where('student_id', $request->studentIdAssign)->where('course_id', $request->courseId)->where('family_id', $request->selectedFamily)->exists()){
+            $assign = StudentsAddedInCourse::where('student_id', $request->studentIdAssign)->where('course_id', $request->courseId)->first();
+            $assign->family_id = $request->selectedFamily;
+            $assign->update();
+            session()->flash('msg', 'Family Assigned Successfully!');
+            return redirect()->back();
+        }else{
+            return redirect()->back()->withErrors(["Family already assigned"]);
+        }
+
+    }
+
+    public function addMe($courseId){
+        if (!StudentsAddedInCourse::where('student_id', Session::get('userId'))->where('course_id', $courseId)->exists()){
+            $assign = new StudentsAddedInCourse();
+            $assign->student_id = Session::get('userId');
+            $assign->course_id = $courseId;
+            $assign->save();
+            session()->flash('msg', 'Registered Successfully! This course will now show in My Courses tab.');
+            return redirect()->back();
+        }else{
+            return redirect()->back()->withErrors(["You already registered in this course"]);
+        }
+
+    }
+
     public function getAddStudentView()
     {
         return view('add-student');
@@ -212,6 +239,12 @@ class StudentController extends Controller
             $item['courses'] = Course::where('id', $item->course_id)->first();
         }
         return view('student-courses')->with(['studentInThisCourse' => $studentInThisCourse]);
+    }
+
+    public function activeCourses()
+    {
+        $courses = Course::all();
+        return view('active-courses')->with(['courses' => $courses]);
     }
 
 }
