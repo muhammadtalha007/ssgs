@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/admin', "AdminController@loginPage")->middleware('checkAuth');
+Route::get('/admin-login', "AdminController@loginPage")->middleware('checkAuth');
 Route::post('/login-admin', "AdminController@loginAdmin")->name('checkAuth');
 Route::get('/', "UserController@loginPage")->middleware('checkAuth');
 Route::get('/register', "UserController@registerPage")->middleware('checkAuth');

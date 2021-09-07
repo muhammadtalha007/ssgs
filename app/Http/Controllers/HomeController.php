@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Chat;
 use App\ChatParent;
+use App\Course;
 use App\Customer;
 use App\Staff;
 use App\User;
@@ -30,12 +31,12 @@ class HomeController extends Controller
      */
     public function showDashboard()
     {
-//        $totalChats = ChatParent::all()->count();
-//        $totalStaff = Staff::all()->count();
-//        $totalCustomers = Customer::all()->count();
-//        $totalMessages = Chat::all()->count();
-//        return view('home')->with(['totalMessages' => $totalMessages,'totalChats' => $totalChats,'totalStaff' => $totalStaff,'totalCustomers' => $totalCustomers]);
-        return view('home');
+        $totalUsers = User::all()->count();
+        $totalCourses = Course::all()->count();
+        $totalStudents = User::where('type', 'student')->count();
+        $totalFamilies = User::where('type', 'family')->count();
+        return view('home')->with(['totalUsers' => $totalUsers,'totalCourses' => $totalCourses,'totalStudents' => $totalStudents,'totalFamilies' => $totalFamilies]);
+//        return view('home');
     }
     public function chat(){
         $chats = ChatParent::all();

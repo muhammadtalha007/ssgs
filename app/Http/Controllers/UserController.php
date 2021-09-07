@@ -11,12 +11,12 @@ class UserController extends Controller
 
     public function loginPage()
     {
-        return view('auth/user-login');
+        return view('auth/user-login-new');
     }
 
     public function registerPage()
     {
-        return view('auth/user-register');
+        return view('auth/admin-register-new');
     }
 
     public function registerUser(Request $request)

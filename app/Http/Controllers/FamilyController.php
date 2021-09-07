@@ -112,6 +112,8 @@ class FamilyController extends Controller
                 $families->datetime_updated_bankdetails = date('Y-m-d H:i:s');
                 $families->save();
             }
+            session()->flash('msg', 'Updated Successfully!');
+            return redirect()->back();
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
