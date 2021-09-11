@@ -408,13 +408,14 @@ z-index: 999999">
                     <hr />
                 </div>
                 <ul id="menu">
-                    <li class="dropdown_menu">
-                        <a href="{{url('home')}}" class="{{\Request::is('home') ? 'activelinkclass' : ''}}">
-                            <i class="fa fa-th"></i>
-                            <span class="link-title menu_hide">&nbsp;Dashboard</span>
-                        </a>
-                    </li>
+
                     @if(\Illuminate\Support\Facades\Session::get('isAdmin') === true)
+                        <li class="dropdown_menu">
+                            <a href="{{url('home')}}" class="{{\Request::is('home') ? 'activelinkclass' : ''}}">
+                                <i class="fa fa-th"></i>
+                                <span class="link-title menu_hide">&nbsp;Dashboard</span>
+                            </a>
+                        </li>
                     <li class="dropdown_menu">
                         <a href="{{url('courses')}}" class="{{\Request::is('courses') ? 'activelinkclass' : ''}}">
                             <i class="fa fa-book"></i>
@@ -441,6 +442,20 @@ z-index: 999999">
                                 <span class="link-title menu_hide">&nbsp;Profile</span>
                             </a>
                         </li>
+                            <li class="dropdown_menu">
+                                <a href="{{url('assigned-students')}}"
+                                   class="{{\Request::is('assigned-students') ? 'activelinkclass' : ''}}">
+                                    <i class="fa fa-users"></i>
+                                    <span class="link-title menu_hide">&nbsp;Assigned Students</span>
+                                </a>
+                            </li>
+                            <li class="dropdown_menu">
+                                <a href="{{url('assigned-courses')}}"
+                                   class="{{\Request::is('assigned-courses') ? 'activelinkclass' : ''}}">
+                                    <i class="fa fa-book"></i>
+                                    <span class="link-title menu_hide">&nbsp;Assigned Courses</span>
+                                </a>
+                            </li>
                         @endif
 
                         @if(\App\User::where('id', \Illuminate\Support\Facades\Session::get('userId'))->first()['type'] == 'student')

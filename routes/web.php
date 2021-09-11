@@ -48,6 +48,9 @@ Route::get('/student-my-course', 'StudentController@getStudentCourseListView')->
 Route::get('/active-courses', 'StudentController@activeCourses')->middleware('dashboard');
 Route::post('/assign-family', 'StudentController@assignFamily')->middleware('dashboard');
 Route::get('/add-me/{id}', 'StudentController@addMe')->middleware('dashboard');
+Route::get('assigned-students', 'FamilyController@assignedStudents')->middleware('dashboard');
+Route::get('assigned-courses', 'FamilyController@assignedCourses')->middleware('dashboard');
+Route::get('view-details-of-students/{id}', 'FamilyController@viewStudentDetails')->middleware('dashboard');
 
 
 Route::get('/get-chat-ping-count', "CustomerController@getChatCount");

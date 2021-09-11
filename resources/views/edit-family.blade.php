@@ -203,8 +203,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label>City:<span style="color: red"> *</span></label>
-                                        <input type="text" class="form-control" name="city" id="city" placeholder="Enter City"
-                                               value="{{$user->familyData->city ?? ''}}" required>
+                                        <select class="form-control" name="city" id="city" required>
+                                            <option value="">Select City</option>
+                                            <option value="Winchester" {{$user->familyData->city ?? '' == 'Winchester' ? 'selected' : ''}}>Winchester</option>
+                                        </select>
+{{--                                        <input type="text" class="form-control" name="city" id="city" placeholder="Enter City"--}}
+{{--                                               value="{{$user->familyData->city ?? ''}}" required>--}}
                                     </div>
                                     <div class="form-group">
                                         <label>Address:<span style="color: red"> *</span></label>

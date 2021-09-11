@@ -30,7 +30,12 @@ class UserController extends Controller
                 $user->type = $request->type;
                 $user->save();
                 Session::put('userId', $user->id);
-                return redirect('home');
+                if ($request->type == 'family'){
+                    return redirect('family-profile');
+                }else{
+                    return redirect('student-my-course');
+                }
+
             } else {
                 return redirect()->back()->withErrors(['Email Address Already Exists']);
             }
@@ -46,7 +51,12 @@ class UserController extends Controller
                 $user = User::where('email', $request->email)->first();
                 if ($user->password == md5($request->password)) {
                     Session::put('userId', $user->id);
-                    return redirect('home');
+                    if ($user->type == 'family'){
+                        return redirect('family-profile');
+                    }else{
+                        return redirect('student-my-course');
+                    }
+
                 } else {
                     return redirect()->back()->withErrors(['Invalid email or password!']);
                 }

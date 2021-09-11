@@ -171,8 +171,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>City:<span style="color: red"> *</span></label>
-                                        <input type="text" class="form-control" name="city" id="city" placeholder="Enter City"
-                                               required>
+                                        <select class="form-control" name="city" id="city" required>
+                                            <option value="">Select City</option>
+                                            <option value="Winchester">Winchester</option>
+                                        </select>
+{{--                                        <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" required>--}}
                                     </div>
                                     <div class="form-group">
                                         <label>Address:<span style="color: red"> *</span></label>
@@ -276,7 +279,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" id="btnFetch" class="btn btn-primary spinner-border">Add Student</button>
+                            <button type="submit" id="btnFetch" class="btn btn-primary spinner-border">Add Family</button>
                         </form>
                     </div>
                 </div>

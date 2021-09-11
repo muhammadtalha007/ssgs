@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\family;
+use App\student;
+use App\StudentsAddedInCourse;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -272,6 +275,41 @@ class FamilyController extends Controller
                 $item['family'] = family::where('user_id', $item->id)->first();
             }
             return view('families')->with(['users' => $users]);
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
+    }
+
+    public function assignedStudents(){
+        try {
+            $students = StudentsAddedInCourse::where('family_id', Session::get('userId'))->get();
+            foreach ($students as $item) {
+                $item['user'] = User::where('id', $item->student_id)->first();
+                $item['user']['student'] = student::where('user_id', $item['user']->id)->first();
+            }
+            return view('assigned-students')->with(['students' => $students]);
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
+    }
+
+    public function viewStudentDetails($id){
+        try {
+            $user = User::where('id', $id)->first();
+            $user['student'] = student::where('user_id', $id)->first();
+            return view('view-student-details')->with(['user' => $user]);
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
+    }
+
+    public function assignedCourses(){
+        try {
+            $courses = StudentsAddedInCourse::where('family_id', Session::get('userId'))->get();
+            foreach ($courses as $item) {
+                $item['course'] = Course::where('id', $item->course_id)->first();
+            }
+            return view('assigned-courses')->with(['courses' => $courses]);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
